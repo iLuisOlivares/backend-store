@@ -1,6 +1,6 @@
 const express = require('express');
+const { logError, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 const routerControl = require('./routes');
-
 const app = express();
 const port = 3000;
 
@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
 
 routerControl(app);
 
+app.use(logError);
+app.use(boomErrorHandler);
+app.use(errorHandler);
+
 app.listen(port, () => {
-  console.log('Escuchando el puerto' + port);
+  console.log('Escuchando el puerto ' + port);
 })

@@ -17,11 +17,14 @@ router.get('/filter', (req, res) => {
 });
 
 
-router.get('/:id', async (req, res) => {
-
-  const id = req.params.id;
-  const product = await service.findOne(id);
-  res.json(product);
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const product = await service.findOne(id);
+    res.json(product);
+  } catch (error) {
+    next(error)
+  }
 });
 
 router.post('/', async (req, res) => {
@@ -36,7 +39,7 @@ router.post('/', async (req, res) => {
 
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -46,20 +49,22 @@ router.patch('/:id', async (req, res) => {
       data: updateProduct,
     });
   } catch (error) {
-    res.status(404).json({
-      message: error.message
-    });
+    next(error)
   }
 
 });
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  const deleteProduct = await service.delete(id);
-  res.json({
-    message: 'deleted',
-    deleteProduct
-  });
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleteProduct = await service.delete(id);
+    res.json({
+      message: 'deleted',
+      deleteProduct
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
