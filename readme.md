@@ -1,4 +1,4 @@
-# Proyecto backend para aprender Node, Express, Docker, JWT
+# Proyecto backend para aprender Node, Express, Docker, JWT, ORM 
 
 
 ## Montar el entorno de desarollo
@@ -43,3 +43,16 @@ docker compose exec <<container>> bash
 docker inspect <<container_id>> 
 ```
 
+## Instalar sequelize y como usarlo
+Sequelize es un ORM que nos permite tratar la data sin necesidad de escribir querys sql
+
+<b> Instalar sequelize: </b>
+
+```bash
+npm install --save sequelize
+```
+
+<b> Instalar drivers para postgres: </b>
+```bash
+npm install --save pg pg-hstore
+```
