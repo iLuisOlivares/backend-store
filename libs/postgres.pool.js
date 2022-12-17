@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
 
+const { config } = require('./../config/config');
 
-const pool = new Pool({
-  host: 'localhost',
-  port: 5432,
-  user: 'luis',
-  password: 'meraki',
-  database: 'my_store'
-});
+//Proteger con encode la informacion
+const USER = encodeURIComponent(config.dbUSer);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+
+const pool = new Pool({ connectionString: URI });
 
 
 
