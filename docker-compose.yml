@@ -1,13 +1,22 @@
-version: "3.3"
+version: "3.8"
 
 services:
   postgres:
-    image: postgres
+    image: postgres:latest
+    container_name: my_container_db
     environment:
       POSTGRES_DB: my_store
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: Meraki
+      POSTGRES_USER: luis
+      POSTGRES_PASSWORD: meraki
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
-      - "~/postgres_data:/var/lib/postgresql/data"
+      - /postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: luissolivaresp@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - 5050:80
